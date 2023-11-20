@@ -12,3 +12,6 @@
 !src
 !src/*
 !src/**/*
+!.github
+!.github/*
+!.github/**/*
