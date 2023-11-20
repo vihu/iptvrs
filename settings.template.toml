@@ -1,0 +1,6 @@
+# URL for your m3u4u playlist
+url = "link_to_m3u4u_playlist_url"
+# Path to your playlist.db file, will be created
+db_path = "/path/to/playlist.db"
+# Path to your local player (e.g. /usr/bin/vlc)
+player_path = "/path/to/vlc"

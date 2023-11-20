@@ -1,0 +1,14 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!README.md
+!LICENSE
+!Cargo.toml
+!Cargo.lock
+!Justfile
+!settings.template.toml
+!src
+!src/*
+!src/**/*
