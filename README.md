@@ -1,14 +1,39 @@
 # iptvrs
 
+Playlist parser and search support for m3u4u playlist locally!
+
+## What does this do?
+
+- Gets your [m3u4u](https://m3u4u.com/) playlist.
+- Stores it locally in [sled](https://github.com/spacejam/sled) database with custom channel indexing.
+- Allows searching for channels.
+- Supports playing a channel with your choice of local player.
+
 ## Requirements
 
 - [Rust](https://www.rust-lang.org/) (rustc 1.70.0+).
 
 ## Setup
 
-- Clone this repo `git clone <this_repo_url>`.
-- Copy `settings.template.toml` to `~/.config/iptvrs/settings.toml`, edit your
-  `settings.toml` accordingly. The template file is commented for reference.
+- Clone this repo:
+
+```
+$ git clone https://github.com/vihu/iptvrs.git
+```
+
+- Create the config directory:
+
+```
+$ mkdir -p $HOME/.config/iptvrs
+```
+
+- Copy settings:
+
+```
+$ cp settings.template.toml $HOME/.config/iptvrs/settings.toml
+```
+
+Edit the `settings.toml` as necessary (it is commented for reference).
 
 ## Build
 
@@ -18,7 +43,7 @@ In the repo root folder:
 $ cargo build --release
 ```
 
-Optionally you can copy the binary to somewhere in your path:
+Optional (but recommended), copy the binary to somewhere in your path:
 
 ```
 $ cp ./target/release/iptvrs ~/.bin
