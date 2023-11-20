@@ -22,11 +22,11 @@ impl Cmd {
 
         for entry in lookup_tree.iter() {
             let (key, value) = entry?;
-            let key_str = String::from_utf8(key.to_vec())?;
-            if key_str.contains(channel_name.trim()) {
+            let db_channel_name = String::from_utf8(key.to_vec())?;
+            if db_channel_name.contains(channel_name.trim()) {
                 let channel_index = String::from_utf8(value.to_vec())?;
                 if let Ok(Some(_channel_url)) = channel_tree.get(&channel_index) {
-                    println!("{} \t {}", channel_index, key_str);
+                    println!("{} \t {}", channel_index, db_channel_name);
                 }
             }
         }

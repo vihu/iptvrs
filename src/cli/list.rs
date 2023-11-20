@@ -16,13 +16,20 @@ impl Cmd {
         let lookup_tree = db.open_tree("lookup")?;
         let channel_tree = db.open_tree("channel")?;
 
+        let mut results = vec![];
         for entry in lookup_tree.iter() {
             let (key, value) = entry?;
-            let key_str = String::from_utf8(key.to_vec())?;
+            let channel_name = String::from_utf8(key.to_vec())?;
             let channel_index = String::from_utf8(value.to_vec())?;
             if let Ok(Some(_channel_url)) = channel_tree.get(&channel_index) {
-                println!("{} \t {}", channel_index, key_str);
+                results.push((channel_index.parse::<u32>()?, channel_name));
             }
+        }
+
+        results.sort_by(|a, b| a.0.cmp(&b.0));
+
+        for (channel_index, channel_name) in results {
+            println!("{} \t {}", channel_index, channel_name);
         }
 
         Ok(())
