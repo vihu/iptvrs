@@ -1,6 +1,6 @@
 use anyhow::Result;
 use config::{Config, Environment, File};
-use dirs::config_dir;
+use dirs::home_dir;
 use serde::{Deserialize, Serialize};
 use std::path::{Path, PathBuf};
 
@@ -21,7 +21,8 @@ impl Settings {
                     .add_source(File::with_name(&file.as_ref().to_string_lossy()).required(false));
             }
             None => {
-                if let Some(mut path) = config_dir() {
+                if let Some(mut path) = home_dir() {
+                    path.push(".config");
                     path.push("iptvrs");
                     path.push("settings.toml");
                     builder = builder.add_source(File::from(path).required(false));
