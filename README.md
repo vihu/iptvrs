@@ -1,5 +1,7 @@
 # iptvrs
 
+![build](https://github.com/vihu/iptvrs/actions/workflows/rust.yml/badge.svg) ![release](https://github.com/vihu/iptvrs/actions/workflows/release.yml/badge.svg)
+
 Playlist parser and search support for m3u4u playlist locally!
 
 ## What does this do?
@@ -8,6 +10,11 @@ Playlist parser and search support for m3u4u playlist locally!
 - Stores it locally in [sled](https://github.com/spacejam/sled) database with custom channel indexing.
 - Allows searching for channels.
 - Supports playing a channel with your choice of local player.
+
+## Installation
+
+You can find pre-built release for your system [here](https://github.com/vihu/iptvrs/releases).
+Alternatively you can install using `cargo install iptvrs`
 
 ## Requirements
 
