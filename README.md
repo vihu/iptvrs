@@ -11,6 +11,7 @@ Playlist parser and search support for m3u4u playlist locally!
 
 ## Requirements
 
+- [m3u4u](https://m3u4u.com) playlist.
 - [Rust](https://www.rust-lang.org/) (rustc 1.70.0+).
 
 ## Setup
