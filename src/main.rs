@@ -32,9 +32,13 @@ impl Cli {
 
 #[derive(Debug, clap::Subcommand)]
 pub enum Cmd {
+    /// Hydrate the database with the contents of playlist
     Hydrate(hydrate::Cmd),
+    /// Search the database for a channel
     Search(search::Cmd),
+    /// Play selected channel
     Play(play::Cmd),
+    /// List all channels
     List(list::Cmd),
 }
 

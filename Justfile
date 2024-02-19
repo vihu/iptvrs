@@ -7,3 +7,7 @@ default:
 # Build the entire project
 build:
     cargo build --release
+
+# Run clippy
+clippy:
+    cargo clippy -- -Dclippy::all -D warnings
