@@ -1,33 +1,35 @@
-use crate::settings::Settings;
+use crate::{db::DB, settings::Settings};
 use anyhow::Result;
 use clap::Parser;
 use std::process::{Command, Stdio};
+use tracing::{error, info, warn};
 
 /// Play a channel using the configured player
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about=None)]
 pub struct Cmd {
     /// The channel index to play
-    channel_index: u32,
+    channel_index: usize,
 }
 
 impl Cmd {
     pub async fn run(self, settings: &Settings) -> Result<()> {
-        let db_path = &settings.db_path;
+        let db = DB::from_settings(settings).await?;
+        let channel_index = self.channel_index;
 
-        let db = sled::open(db_path)?;
-        let channel_index = self.channel_index.to_string();
-
-        let channel_tree = db.open_tree("channel")?;
-
-        if let Ok(Some(channel_url)) = channel_tree.get(channel_index) {
-            let channel_url_str = String::from_utf8(channel_url.to_vec())?;
-            Command::new(&settings.player_path)
-                .arg(&channel_url_str)
-                .arg("--quiet")
-                .stdout(Stdio::null())
-                .stderr(Stdio::null())
-                .spawn()?;
+        match db.get_entry_by_channel_index(channel_index).await {
+            Ok(Some(entry)) => {
+                info!(channel_index = ?channel_index, channel_name = ?entry.channel_name, "playing selected channel");
+                let channel_url = entry.channel_url;
+                Command::new(&settings.player_path)
+                    .arg(&channel_url)
+                    .arg("--quiet")
+                    .stdout(Stdio::null())
+                    .stderr(Stdio::null())
+                    .spawn()?;
+            }
+            Ok(None) => warn!(channel_index = ?channel_index, "no entry found"),
+            Err(e) => error!(error = ?e, "error"),
         }
 
         Ok(())

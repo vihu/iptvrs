@@ -2,9 +2,11 @@ use anyhow::{bail, Result};
 use clap::Parser;
 use iptvrs::{
     cli::{hydrate, list, play, search},
+    db::DB,
     settings::Settings,
 };
 use std::path::PathBuf;
+use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[derive(Debug, clap::Parser)]
 #[clap(version = env!("CARGO_PKG_VERSION"))]
@@ -44,6 +46,16 @@ pub enum Cmd {
 
 impl Cmd {
     pub async fn run(self, settings: Settings) -> Result<()> {
+        // setup tracing
+        tracing_subscriber::registry()
+            .with(tracing_subscriber::EnvFilter::new(&settings.log))
+            .with(tracing_logfmt::layer())
+            .init();
+
+        let db = DB::from_settings(&settings).await?;
+
+        sqlx::migrate!("./migrations").run(&db.pool).await?;
+
         match self {
             Cmd::Hydrate(cmd) => cmd.run(&settings).await,
             Cmd::Search(cmd) => cmd.run(&settings).await,

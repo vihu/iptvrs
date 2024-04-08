@@ -1,8 +1,13 @@
-# Define the default settings.toml file path
-default-settings := "settings.toml"
-
 default:
     just --list --unsorted
+
+# Fmt
+fmt:
+    cargo fmt -- --check
+
+# Build the entire project
+build-dev:
+    cargo build
 
 # Build the entire project
 build:
@@ -11,3 +16,14 @@ build:
 # Run clippy
 clippy:
     cargo clippy -- -Dclippy::all -D warnings
+
+# Test
+test:
+    cargo test
+
+# CI
+ci:
+    just fmt
+    just clippy
+    just test
+    just build-dev

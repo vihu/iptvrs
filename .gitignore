@@ -15,3 +15,5 @@
 !.github
 !.github/*
 !.github/**/*
+!migrations
+!migrations/*
