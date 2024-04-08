@@ -2,13 +2,13 @@
 
 ![build](https://github.com/vihu/iptvrs/actions/workflows/rust.yml/badge.svg) ![release](https://github.com/vihu/iptvrs/actions/workflows/release.yml/badge.svg)
 
-Playlist parser and search support for m3u4u playlist locally!
+Playlist parser and search support for m3u4u playlists locally!
 
 ## What does this do?
 
-- Gets your [m3u4u](https://m3u4u.com/) playlist.
-- Stores it locally in [sled](https://github.com/spacejam/sled) database with custom channel indexing.
-- Allows searching for channels.
+- Gets your [m3u4u](https://m3u4u.com/) playlists.
+- Stores the playlists locally in a sqlite database.
+- Allows searching for channels (and playlists).
 - Supports playing a channel with your choice of local player.
 
 ## Installation

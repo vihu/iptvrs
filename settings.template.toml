@@ -1,6 +1,15 @@
-# URL for your m3u4u playlist
-url = "link_to_m3u4u_playlist_url"
-# Path to your playlist.db file, will be created
-db_path = "/path/to/playlist.db"
-# Path to your local player (e.g. /usr/bin/vlc)
-player_path = "/path/to/vlc"
+# Specify where you want to store the database
+# NOTE: Follow this format
+db_url = "sqlite:///path/to/sqlite.db"
+# Specify full path for the player to use
+player_path = "/path/to/player"
+
+# Specify playlists in the following way
+# NOTE: multiple playlists are supported!
+[[playlists]]
+url = "https://example.com/playlist1.m3u"
+name = "Playlist 1"
+
+[[playlists]]
+url = "https://example.com/playlist2.m3u"
+name = "Playlist 2"

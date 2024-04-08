@@ -21,15 +21,24 @@ jobs:
         run: sudo apt-get update
 
       - name: Setup | Rust toolchain
-        uses: dtolnay/rust-toolchain@1.70.0
+        uses: dtolnay/rust-toolchain@1.76.0
         with:
           components: clippy, rustfmt
 
       - name: Setup | Rust cache
         uses: Swatinem/rust-cache@v2
 
+      - name: Setup | Just
+        uses: extractions/setup-just@v2
+
       - name: Hygiene | Formatting
-        run: cargo fmt -- --check
+        run: just fmt
 
       - name: Hygiene | Clippy
-        run: cargo clippy -- -Dclippy::all -Dwarnings
+        run: just clippy
+
+      - name: Hygiene | Test
+        run: just test
+
+      - name: Hygiene | Build
+        run: just build-dev
